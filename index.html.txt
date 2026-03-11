@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SYNDICATE | المركز الرئيسي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Nosifer&display=swap" rel="stylesheet">
+    <style>
+        :root { --red: #8b0000; --black: #050505; --gold: #c9ad60; --gray: #1a1a1a; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: white; margin: 0; }
+        
+        /* شاشة الدخول */
+        #login-screen { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1350&q=80'); background-size: cover; text-align: center; }
+        .login-box { background: rgba(10, 10, 10, 0.95); padding: 40px; border: 1px solid var(--red); border-radius: 10px; box-shadow: 0 0 25px var(--red); width: 85%; max-width: 400px; }
+        input { width: 100%; padding: 15px; margin: 15px 0; background: #000; border: 1px solid var(--red); color: white; text-align: center; font-size: 1.1rem; border-radius: 5px; }
+        .btn { background: var(--red); color: white; border: none; padding: 15px; width: 100%; cursor: pointer; font-weight: bold; font-size: 1.1rem; border-radius: 5px; transition: 0.3s; }
+        .btn:hover { background: #ff0000; transform: scale(1.02); }
+
+        /* المحتوى الرئيسي */
+        #main-content { display: none; }
+        nav { background: #000; padding: 10px; display: flex; justify-content: center; border-bottom: 2px solid var(--red); position: sticky; top: 0; z-index: 1000; gap: 10px; flex-wrap: wrap; }
+        nav button { background: transparent; border: 1px solid var(--red); color: white; padding: 8px 15px; cursor: pointer; font-family: 'Cairo'; border-radius: 4px; }
+        nav button.active { background: var(--red); }
+
+        .page { display: none; padding: 30px 5%; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .header-info { background: var(--gray); padding: 20px; border-right: 6px solid var(--gold); margin-bottom: 30px; }
+        .card { background: var(--gray); padding: 20px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; }
+        .rank-title { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
+        .rule-item { border-bottom: 1px solid #333; padding: 15px 0; display: flex; align-items: flex-start; gap: 10px; }
+        .rule-num { background: var(--red); color: white; padding: 2px 8px; border-radius: 50%; font-size: 0.8rem; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <h1 style="font-family: 'Nosifer'; color: var(--red); font-size: 2.5rem; margin-bottom: 5px;">THE SYNDICATE</h1>
+        <p style="color: var(--gold); margin-bottom: 25px; letter-spacing: 2px;">نظام الإدارة المشفر v2.0</p>
+        <div class="login-box">
+            <input type="text" id="code-input" placeholder="أدخل رمز العبور.." autocomplete="off">
+            <button class="btn" onclick="login()">دخول المنظمة</button>
+            <p id="error" style="color: red; display: none; margin-top: 15px;">الرمز غير مسجل في قاعدة البيانات!</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <nav>
+            <button onclick="showPage('home')" id="btn-home" class="active">الرئيسية</button>
+            <button onclick="showPage('ranks')">السلم العسكري</button>
+            <button onclick="showPage('laws')">القوانين</button>
+            <button onclick="showPage('missions')">المهام</button>
+        </nav>
+
+        <div id="home" class="page" style="display: block;">
+            <div class="header-info" id="user-banner"></div>
+            <h2 style="font-family: 'Nosifer'; color: var(--red);">آخر الأخبار</h2>
+            <div class="card">🚀 تم تحديث النظام الأمني للموقع.</div>
+            <div class="card">💀 مطلوب القبض على الخونة المسربين للمعلومات.</div>
+        </div>
+
+        <div id="ranks" class="page">
+            <h2 style="color: var(--gold);">🔱 الهيكل التنظيمي</h2>
+            <div class="card"><span class="rank-title">اللاندر (الرؤساء):</span> كود الوصول: SS-0-112</div>
+            <div class="card"><span class="rank-title">ابن عم اللاندر:</span> لافنير (SS-11-29)</div>
+            <div class="card"><span class="rank-title">أعضاء المافيا:</span> حمد بن مترك، طراد بن مسبق، ششه، أبو شهاب، عبدالله عبدلي.</div>
+        </div>
+
+        <div id="laws" class="page">
+            <h2 style="color: var(--red);">📜 ميثاق الصمت</h2>
+            <div class="rule-item"><span class="rule-num">1</span> <div><b>قانون الأوميرتا:</b> الصمت هو نجاتك الوحيدة، الوشاية تعني النهاية.</div></div>
+            <div class="rule-item"><span class="rule-num">2</span> <div><b>الاحترام:</b> لا يتم المساس برتبة أعلى منك قولاً أو فعلاً.</div></div>
+            <div class="rule-item"><span class="rule-num">3</span> <div><b>الانضباط:</b> التواجد في الاجتماعات الرسمية إلزامي لجميع الأعضاء.</div></div>
+        </div>
+
+        <div id="missions" class="page">
+            <h2 style="color: var(--red);">🎯 عمليات جارية</h2>
+            <div class="card" style="border-left: 4px solid #f00;"><b>مهمة "العقرب":</b> تصفية الشهود في قضية البنك المركزي.</div>
+            <div class="card" style="border-left: 4px solid #f00;"><b>مهمة "الظل":</b> اختراق اتصالات الشرطة وتزويدنا بالتحركات.</div>
+        </div>
+    </div>
+
+    <script>
+        const users = {
+            "ss-0-112": { name: "اللاندر", rank: "رئيس المنظمة" },
+            "ss-01-27": { name: "حمد بن مترك", rank: "عضو مافيا" },
+            "ss-11-29": { name: "لافنير", rank: "ابن عم اللاندر" },
+            "ss-00-28": { name: "طراد بن مسبق", rank: "عضو مافيا" },
+            "ss-41-30": { name: "عبدالجليل ششه", rank: "عضو مافيا" },
+            "ss-92-31": { name: "ابو شهاب", rank: "عضو مافيا" },
+            "ll-12-65": { name: "عبدالله عبدلي", rank: "عضو مافيا" }
+        };
+
+        function login() {
+            const code = document.getElementById('code-input').value.toLowerCase();
+            if (users[code]) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('user-banner').innerHTML = `أهلاً بك يا <b>${users[code].name}</b><br>رتبتك الحالية: ${users[code].rank}`;
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(pageId).style.display = 'block';
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
